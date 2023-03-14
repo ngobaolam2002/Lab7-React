@@ -9,15 +9,21 @@ import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { addComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { addComment } from '../redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+
+
+
 
 const mapDispatchToProps = dispatch => ({
-
+      postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
       addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
       fetchDishes: () => { dispatch(fetchDishes()) },
       resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
       fetchComments: () => dispatch(fetchComments()),
       fetchPromos: () => dispatch(fetchPromos())
+
+
 
 
 });
@@ -57,6 +63,7 @@ class Main extends Component {
                               promoLoading={this.props.promotions.isLoading}
                               promoErrMess={this.props.promotions.errMess}
                               leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+                              postComment={this.props.postComment}
                         />
 
                   );
