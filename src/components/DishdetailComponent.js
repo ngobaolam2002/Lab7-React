@@ -3,6 +3,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrum
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -26,10 +27,10 @@ class CommentForm extends Component {
       }
 
       handleSubmit(values) {
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
-            // console.log("Current State is: " + JSON.stringify(values));
-            // alert("Current State is: " + JSON.stringify(values));
-            this.toggleModal();
+            // this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+            console.log("Current State is: " + JSON.stringify(values));
+            alert("Current State is: " + JSON.stringify(values));
+            this.props.resetFeedbackForm();
       }
 
       render() {
@@ -43,7 +44,7 @@ class CommentForm extends Component {
                               <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                                     <ModalBody>
-                                          <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                                          <LocalForm model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                                                 <Row className="form-group">
                                                       <Col md={12}>
                                                             <Label htmlFor="rating">Rating</Label>
